@@ -110,12 +110,32 @@ setup_shell() {
     fi
 }
 
+setup_git() {
+    title "Setting up Git"
+
+    defaultName=$(git config user.name)
+    defaultEmail=$(git config user.email)
+
+    read -rp "Name [$defaultName] " name
+    read -rp "Email [$defaultEmail] " email
+
+    git config --global user.name "${name:-$defaultName}"
+    git config --global user.email "${email:-$defaultEmail}"
+
+    read -rp "Save user and password to an unencrypted file to avoid writing? [y/N] " save
+    if [ $save = y ]; then
+        git config --global credential.helper "store"
+    else
+        git config --global credential.helper "cache --timeout 3600"
+    fi
+}
+
 case "$1" in
     link)
         setup_symlinks
         ;;
     git)
-        #setup_git
+        setup_git
         ;;
     homebrew)
         setup_homebrew
@@ -127,7 +147,7 @@ case "$1" in
         setup_symlinks
         setup_homebrew
         setup_shell
-        #setup_git
+        setup_git
         ;;
     *)
         echo -e $"\nUsage: $(basename "$0") {link|git|homebrew|shell|all}\n"
