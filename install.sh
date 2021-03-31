@@ -28,7 +28,7 @@ info() {
 }
 
 success() {
-    echo -e "${COLOR_GREEN}$1${COLOR_NONE}"
+    echo "${COLOR_GREEN}$1${COLOR_NONE}"
 }
 
 setup_symlinks() {
@@ -84,10 +84,11 @@ setup_homebrew() {
         curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh | bash --login
     fi
 
-    if [ "$(uname)" == "Linux" ]; then
+    if [ "$(uname)" = "Linux" ]; then
         test -d ~/.linuxbrew && eval "$(~/.linuxbrew/bin/brew shellenv)"
         test -d /home/linuxbrew/.linuxbrew && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
         test -r ~/.bash_profile && echo "eval \$($(brew --prefix)/bin/brew shellenv)" >>~/.bash_profile
+        echo "eval \$($(brew --prefix)/bin/brew shellenv)" >>~/.profile
     fi
 
     # install brew dependencies from Brewfile
@@ -97,13 +98,13 @@ setup_homebrew() {
 setup_shell() {
     title "Configuring shell"
 
-    [[ -n "$(command -v brew)" ]] && zsh_path="$(brew --prefix)/bin/zsh" || zsh_path="$(which zsh)"
+    [ -n "$(command -v brew)" ] && zsh_path="$(brew --prefix)/bin/zsh" || zsh_path="$(which zsh)"
     if ! grep "$zsh_path" /etc/shells; then
         info "adding $zsh_path to /etc/shells"
         echo "$zsh_path" | sudo tee -a /etc/shells
     fi
 
-    if [[ "$SHELL" != "$zsh_path" ]]; then
+    if [ "$SHELL" != "$zsh_path" ]; then
         chsh -s "$zsh_path"
         info "default shell changed to $zsh_path"
     fi
@@ -134,5 +135,4 @@ case "$1" in
         ;;
 esac
 
-echo -e
 success "Done."
