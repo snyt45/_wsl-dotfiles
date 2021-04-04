@@ -46,3 +46,6 @@ $ ghq get <repository URL>
 
 #### pecoでGit作業コピーを検索
 `C-x + g`
+
+# Referenced repository
+[nicknisi/dotfiles: vim, zsh, git, homebrew, nvm, neovim \- my whole world](https://github.com/nicknisi/dotfiles)
