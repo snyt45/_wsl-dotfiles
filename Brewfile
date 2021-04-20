@@ -1,6 +1,5 @@
 tap "homebrew/bundle"
 tap "homebrew/core"
-brew "emacs"
 brew "gcc"
 brew "ghq"
 brew "git"
