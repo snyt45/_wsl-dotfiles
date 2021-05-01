@@ -15,7 +15,7 @@
 
 ## Setup
 ```
-$ git clone https://github.com/snyt45/dotfiles.git ~/.dotfiles
+$ git clone https://github.com/snyt45/wsl-dotfiles.git ~/.dotfiles
 $ cd ~/.dotfiles
 $ sh install.sh all
 ```
